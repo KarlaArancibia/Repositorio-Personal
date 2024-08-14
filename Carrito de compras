@@ -1,0 +1,47 @@
+
+class Producto {
+    constructor(nombre, precio, cantidad) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
+}
+
+class CarritoDeCompras {
+    constructor() {
+        this.productos = [];
+    }
+
+    agregarProducto(producto) {
+        this.productos.push(producto);
+    }
+
+    eliminarProducto(nombreProducto) {
+        this.productos = this.productos.filter(producto => producto.nombre !== nombreProducto);
+    }
+
+    modificarCantidad(nombreProducto, nuevaCantidad) {
+        const producto = this.productos.find(producto => producto.nombre === nombreProducto);
+        if (producto) {
+            producto.cantidad = nuevaCantidad;
+        }
+    }
+
+    aplicarDescuento(nombreProducto, porcentajeDescuento) {
+        const producto = this.productos.find(producto => producto.nombre === nombreProducto);
+        if (producto) {
+            producto.precio -= producto.precio * (porcentajeDescuento / 100);
+        }
+    }
+
+    generarResumen() {
+        let total = 0;
+        console.log("Resumen de la compra:");
+        this.productos.forEach(producto => {
+            const subtotal = producto.precio * producto.cantidad;
+            console.log(${producto.nombre} - Cantidad: ${producto.cantidad}, Precio Unitario: $${producto.precio}, Subtotal: $${subtotal});
+            total += subtotal;
+        });
+        console.log(Total a pagar: $${total});
+    }
+}
